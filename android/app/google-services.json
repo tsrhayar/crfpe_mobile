@@ -1,0 +1,29 @@
+{
+  "project_info": {
+    "project_number": "89533257908",
+    "project_id": "crfpe-mobile",
+    "storage_bucket": "crfpe-mobile.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:89533257908:android:1d6c5d4ed9b1ac42165fe1",
+        "android_client_info": {
+          "package_name": "com.example.crfpe_mobile"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBX_lYjHQDblB5RADWYW32VsZwZeXj5-Y8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
