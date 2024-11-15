@@ -4,8 +4,8 @@ import 'package:crfpe_mobile/pages/communication/communication.dart';
 import 'package:crfpe_mobile/pages/evaluation/widgets/document.dart';
 import 'package:crfpe_mobile/pages/home/home.dart';
 import 'package:flutter/material.dart';
-
 import 'package:crfpe_mobile/pages/home/widgets/header.dart';
+import 'package:crfpe_mobile/widgets/bottom_navigation_bar.dart'; // Import the new widget
 
 class EvaluationPage extends StatefulWidget {
   const EvaluationPage({Key? key}) : super(key: key);
@@ -47,111 +47,9 @@ class _EvaluationPageState extends State<EvaluationPage> {
           ),
         ],
       ),
-      bottomNavigationBar: _buildNavigationBar(),
-    );
-  }
-
-  Widget _buildNavigationBar() {
-    return Container(
-      color: const Color(0xfff6f8ff),
-      child: Container(
-        decoration: const BoxDecoration(
-          boxShadow: [
-            BoxShadow(
-              color: Colors.grey,
-              spreadRadius: 5,
-              blurRadius: 10,
-            ),
-          ],
-        ),
-        child: ClipRRect(
-          borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(30),
-            topRight: Radius.circular(30),
-          ),
-          child: BottomNavigationBar(
-            currentIndex: _selectedIndex,
-            onTap: _onItemTapped,
-            selectedItemColor: const Color(0xFF1869a6),
-            selectedFontSize: 12,
-            unselectedFontSize: 12,
-            unselectedItemColor: Colors.grey.withOpacity(0.7),
-            type: BottomNavigationBarType.fixed,
-            items:  [
-              BottomNavigationBarItem(
-                label: 'Absent',
-                icon: Icon(
-                  Icons.person_off_rounded,
-                  size: 50,
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Doc",
-                icon: Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-          // color: Colors.grey.withOpacity(0.2),
-          //           borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.insert_drive_file_rounded,
-                    size: 30,
-                    
-                  ),
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Agenda",
-                icon: Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.calendar_month_rounded,
-                    size: 30,
-                    color:  Colors.grey,
-                  ),
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Facture",
-                icon: Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.request_quote_rounded,
-                    size: 30,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-              BottomNavigationBarItem(
-                label: "Contact",
-                icon: Container(
-                  margin: EdgeInsets.all(5),
-                  padding: EdgeInsets.all(5),
-                  decoration: BoxDecoration(
-                    color: Colors.grey.withOpacity(0.2),
-                    borderRadius: BorderRadius.circular(10),
-                  ),
-                  child: Icon(
-                    Icons.message_rounded,
-                    size: 30,
-                    color: Colors.grey,
-                  ),
-                ),
-              ),
-            ],
-          ),
-        ),
+      bottomNavigationBar:  BottomNavigationBarWidget(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped, // Pass the tap handler
       ),
     );
   }

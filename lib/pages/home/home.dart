@@ -5,6 +5,8 @@ import 'package:crfpe_mobile/pages/evaluation/evaluation.dart';
 import 'package:flutter/material.dart';
 import 'package:crfpe_mobile/pages/home/widgets/actuality.dart';
 import 'package:crfpe_mobile/pages/home/widgets/header.dart';
+import 'package:crfpe_mobile/widgets/bottom_navigation_bar.dart'; // Import the new widget
+
  // Importer AgendaSection
 
 class HomePage extends StatefulWidget {
@@ -92,7 +94,10 @@ class _HomePageState extends State<HomePage> {
           ),
         ],
       ),
-      bottomNavigationBar: _buildNavigationBar(),
+      bottomNavigationBar:  BottomNavigationBarWidget(
+        selectedIndex: _selectedIndex,
+        onItemTapped: _onItemTapped, // Pass the tap handler
+      ),
     );
   }
 
@@ -124,7 +129,7 @@ class _HomePageState extends State<HomePage> {
             type: BottomNavigationBarType.fixed,
             items:  [
               BottomNavigationBarItem(
-                label: 'Absent',
+                label: 'Absent 7',
                 icon: Icon(
                   Icons.person_off_rounded,
                   size: 50,

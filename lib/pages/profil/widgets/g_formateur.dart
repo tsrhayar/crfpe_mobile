@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:crfpe_mobile/widgets/bottom_navigation_bar.dart'; // Import the new widget
 
 class G_FormateurSection extends StatefulWidget {
   const G_FormateurSection({super.key});
