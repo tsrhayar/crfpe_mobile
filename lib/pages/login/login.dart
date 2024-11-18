@@ -104,6 +104,8 @@ class _LoginPageState extends State<LoginPage> {
           if (data.containsKey('token') && data['token'] != null) {
             final prefs = await SharedPreferences.getInstance();
             prefs.setString('token', data['token']);
+            prefs.setString('role', data['role']);
+            prefs.setString('user_id', data['user_id']);
             if (_rememberMe) {
               prefs.setString('email', _emailController.text);
               prefs.setString('password', _passwordController.text);

@@ -198,10 +198,11 @@ class _CommunicationpageState extends State<Communicationpage> {
       // Optionnel : Naviguer vers la page AgendaSection
       Navigator.push(
         context,
-        MaterialPageRoute(builder: (context) => const EvaluationPage()),
+          // MaterialPageRoute(builder: (context) => const EvaluationPage()),
+          MaterialPageRoute(builder: (context) => const AgendaPage()),
       );
     }
-     if (index == 2) {
+     if (index == 2) { // old index 2
       // Navigation vers l'écran Agenda si l'élément "Agenda" est sélectionné
       // Optionnel : Naviguer vers la page AgendaSection
       Navigator.push(

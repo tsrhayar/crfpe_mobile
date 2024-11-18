@@ -1,6 +1,7 @@
 import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
+import 'package:shared_preferences/shared_preferences.dart';
 
 class ActualitySection extends StatefulWidget {
   const ActualitySection({super.key});
@@ -23,23 +24,42 @@ class _ActualitySectionState extends State<ActualitySection> {
   // Fetch news data from the API
   Future<void> _fetchNews() async {
     try {
-      final response = await http.get(
-          Uri.parse('https://preprod.solaris-crfpe.fr/api/news/indexJson'));
+      // Get the user_id from shared preferences
+      final prefs = await SharedPreferences.getInstance();
+      String? userId = prefs.getString('user_id'); // Retrieve the user_id
+       print('userId: $userId');
+      if (userId != null) {
+        // Include user_id as a query parameter
+        final response = await http.get(
+          Uri.parse('https://preprod.solaris-crfpe.fr/api/news/indexJson')
+              .replace(
+            queryParameters: {
+              'user_id': userId
+            }, // Add user_id as query parameter
+          ),
+        );
 
-      if (response.statusCode == 200) {
-        setState(() {
-          _newsList = json.decode(response.body); // Decode the JSON response
-          _isLoading = false; // Set loading to false after data is fetched
-        });
+        if (response.statusCode == 200) {
+          setState(() {
+            _newsList = List<dynamic>.from(
+                json.decode(response.body)); // Decode and store the news data
+            _isLoading = false; // Set loading to false after data is fetched
+          });
+        } else {
+          setState(() {
+            _errorMessage = 'Failed to load news data. Please try again later.';
+            _isLoading = false;
+          });
+        }
       } else {
         setState(() {
-          _errorMessage = 'Failed to load news data. Please try again later.';
+          _errorMessage = 'User ID not found in preferences.';
           _isLoading = false;
         });
       }
     } catch (e) {
       setState(() {
-        _errorMessage = 'Error: $e';
+        _errorMessage = 'Error: $e'; // Catch and display error
         _isLoading = false;
       });
     }

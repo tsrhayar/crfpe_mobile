@@ -16,10 +16,12 @@ class GestionAbsenceEtudiantpage extends StatefulWidget {
   const GestionAbsenceEtudiantpage({Key? key}) : super(key: key);
 
   @override
-  _GestionAbsenceEtudiantpageState createState() => _GestionAbsenceEtudiantpageState();
+  _GestionAbsenceEtudiantpageState createState() =>
+      _GestionAbsenceEtudiantpageState();
 }
 
-class _GestionAbsenceEtudiantpageState extends State<GestionAbsenceEtudiantpage> {
+class _GestionAbsenceEtudiantpageState
+    extends State<GestionAbsenceEtudiantpage> {
   int _selectedIndex = 4; // Index initial pour l'élément "Contact"
 
   @override
@@ -71,7 +73,8 @@ class _GestionAbsenceEtudiantpageState extends State<GestionAbsenceEtudiantpage>
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const EvaluationPage()),
+          // MaterialPageRoute(builder: (context) => const EvaluationPage()),
+          MaterialPageRoute(builder: (context) => const AgendaPage()),
         );
         break;
       case 2:
@@ -114,7 +117,8 @@ class CustomSliverPersistentHeader extends SliverPersistentHeaderDelegate {
   double get maxExtent => maxHeight;
 
   @override
-  Widget build(BuildContext context, double shrinkOffset, bool overlapsContent) {
+  Widget build(
+      BuildContext context, double shrinkOffset, bool overlapsContent) {
     return SizedBox.expand(child: child);
   }
 

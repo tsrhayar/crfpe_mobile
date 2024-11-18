@@ -69,7 +69,8 @@ class _GestionProfilFormateurpageState
       case 1:
         Navigator.push(
           context,
-          MaterialPageRoute(builder: (context) => const EvaluationPage()),
+          // MaterialPageRoute(builder: (context) => const EvaluationPage()),
+          MaterialPageRoute(builder: (context) => const AgendaPage()),
         );
         break;
       case 2:

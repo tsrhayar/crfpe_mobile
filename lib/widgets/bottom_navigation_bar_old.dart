@@ -1,3 +1,5 @@
+// lib/widgets/bottom_navigation_bar.dart
+
 import 'package:flutter/material.dart';
 
 class BottomNavigationBarWidget extends StatelessWidget {
@@ -49,15 +51,27 @@ class BottomNavigationBarWidget extends StatelessWidget {
     );
   }
 
-  // BottomNavigationBar items with only "Absent" and "Agenda"
+  // BottomNavigationBar items as a static list
   static final List<BottomNavigationBarItem> _bottomNavItems = [
     BottomNavigationBarItem(
-      label: 'Actualité',
-      icon: _navIcon(Icons.newspaper),
+      label: 'Absent',
+      icon: _navIcon(Icons.person_off_rounded),
+    ),
+    BottomNavigationBarItem(
+      label: "Doc",
+      icon: _navIcon(Icons.insert_drive_file_rounded),
     ),
     BottomNavigationBarItem(
       label: "Agenda",
       icon: _navIcon(Icons.calendar_month_rounded),
+    ),
+    BottomNavigationBarItem(
+      label: "Facture",
+      icon: _navIcon(Icons.request_quote_rounded),
+    ),
+    BottomNavigationBarItem(
+      label: "Contact",
+      icon: _navIcon(Icons.message_rounded),
     ),
   ];
 
