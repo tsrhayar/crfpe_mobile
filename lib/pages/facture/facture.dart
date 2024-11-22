@@ -1,5 +1,6 @@
 import 'package:crfpe_mobile/pages/communication/communication.dart';
-import 'package:crfpe_mobile/pages/home/widgets/header_formateur.dart';
+// import 'package:crfpe_mobile/pages/home/widgets/header_formateur.dart';
+import 'package:crfpe_mobile/pages/home/widgets/header.dart';
 import 'package:crfpe_mobile/pages/facture/widgets/f_formateur.dart';
 import 'package:crfpe_mobile/pages/agenda/agenda.dart';
 import 'package:crfpe_mobile/pages/evaluation/evaluation.dart';
@@ -43,7 +44,7 @@ class _FacturationpageState extends State<Facturationpage> {
               maxHeight: 120,
               child: Container(
                 color: const Color(0xfff6f8ff),
-                child: const HeaderFormateurSection(),
+                child: const HeaderSection(),
               ),
             ),
           ),

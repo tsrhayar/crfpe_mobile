@@ -1,8 +1,25 @@
 <manifest xmlns:android="http://schemas.android.com/apk/res/android">
     <application
-        android:label="crfpe_mobile"
+        android:label="CRFPE"
         android:name="${applicationName}"
         android:icon="@mipmap/ic_launcher">
+           <!-- Add the following inside <application> -->
+        <!-- <service
+            android:name="com.google.firebase.messaging.FirebaseMessagingService"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+            </intent-filter>
+        </service>
+
+        <receiver
+            android:name="com.google.firebase.iid.FirebaseInstanceIdReceiver"
+            android:exported="true">
+            <intent-filter>
+                <action android:name="com.google.android.c2dm.intent.RECEIVE" />
+            </intent-filter>
+        </receiver> -->
+        
         <activity
             android:name=".MainActivity"
             android:exported="true"

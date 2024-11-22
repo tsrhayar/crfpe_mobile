@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:crfpe_mobile/pages/communication/communication.dart';
-import 'package:crfpe_mobile/pages/home/widgets/header_formateur.dart';
+// import 'package:crfpe_mobile/pages/home/widgets/header_formateur.dart';
+import 'package:crfpe_mobile/pages/home/widgets/header.dart';
 import 'package:crfpe_mobile/pages/absence/widgets/ga_formateur.dart';
 import 'package:crfpe_mobile/pages/Facture/facture.dart';
 import 'package:crfpe_mobile/pages/agenda/agenda.dart';
@@ -33,7 +34,7 @@ class _GestionAbsenceFormateurpageState
               maxHeight: 120,
               child: Container(
                 color: const Color(0xfff6f8ff),
-                child: const HeaderFormateurSection(),
+                child: const HeaderSection(),
               ),
             ),
           ),

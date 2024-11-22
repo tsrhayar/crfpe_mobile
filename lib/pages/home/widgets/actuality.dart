@@ -27,7 +27,7 @@ class _ActualitySectionState extends State<ActualitySection> {
       // Get the user_id from shared preferences
       final prefs = await SharedPreferences.getInstance();
       String? userId = prefs.getString('user_id'); // Retrieve the user_id
-       print('userId: $userId');
+      print('userId: $userId');
       if (userId != null) {
         // Include user_id as a query parameter
         final response = await http.get(
@@ -53,7 +53,7 @@ class _ActualitySectionState extends State<ActualitySection> {
         }
       } else {
         setState(() {
-          _errorMessage = 'User ID not found in preferences.';
+          _errorMessage = 'Merci de vous réauthentifier à nouveau.';
           _isLoading = false;
         });
       }
@@ -73,7 +73,7 @@ class _ActualitySectionState extends State<ActualitySection> {
         Padding(
           padding: const EdgeInsets.all(16.0),
           child: Text(
-            'Actualité Solaris ...',
+            'Actualité Solaris',
             style: TextStyle(
               fontSize: 20,
               fontWeight: FontWeight.bold,
@@ -91,6 +91,16 @@ class _ActualitySectionState extends State<ActualitySection> {
             child: Text(
               _errorMessage, // Display error message
               style: TextStyle(color: Colors.red),
+            ),
+          )
+        else if (_newsList.isEmpty)
+          Center(
+            child: Text(
+              'Aucune actualité disponible pour le moment.', // Empty list message
+              style: TextStyle(
+                fontSize: 16,
+                color: Colors.grey,
+              ),
             ),
           )
         else
@@ -113,56 +123,116 @@ class _ActualitySectionState extends State<ActualitySection> {
     );
   }
 
-  // Widget to build individual news cards
-  Widget _buildNewsCard(
-      {String title = '', String content = '', String time = ''}) {
-    return Card(
-      elevation: 2,
-      margin: const EdgeInsets.only(bottom: 16.0),
-      color: Color(0xFF1869a6), // Background color of the card
+Widget _buildNewsCard(
+    {String title = '', String content = '', String time = ''}) {
+  return Card(
+    elevation: 2,
+    margin: const EdgeInsets.only(bottom: 16.0),
+    color: const Color(0xFF1869a6), // Background color of the card
+    child: Padding(
+      padding: const EdgeInsets.all(8.0),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                // Display the time aligned to the right and in a smaller font
-                Align(
-                  alignment: Alignment.topRight,
-                  child: Text(
-                    '$time',
-                    style: TextStyle(
-                      fontSize: 12, // Make the time smaller
-                      color: Colors.white,
-                    ),
-                  ),
-                ),
-                SizedBox(height: 8),
-                // Title of the news
-                Text(
+          // Title and time on the same line
+          Row(
+            children: [
+              // Title with 70% width
+              Expanded(
+                flex: 7,
+                child: Text(
                   title,
-                  style: TextStyle(
+                  style: const TextStyle(
                     fontSize: 18,
                     fontWeight: FontWeight.bold,
                     color: Colors.white, // Text color
                   ),
+                  overflow: TextOverflow.ellipsis, // Handle long titles
                 ),
-                SizedBox(height: 8),
-                // Content of the news
-                Text(
-                  content,
-                  style: TextStyle(
-                    fontSize: 16,
-                    color: Colors.white, // Text color
+              ),
+              // Time with 30% width
+              Expanded(
+                flex: 3,
+                child: Align(
+                  alignment: Alignment.centerRight,
+                  child: Text(
+                    time,
+                    style: const TextStyle(
+                      fontSize: 12, // Smaller font size
+                      color: Colors.white,
+                    ),
                   ),
                 ),
-              ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 8),
+          // Content of the news
+          Text(
+            content,
+            style: const TextStyle(
+              fontSize: 16,
+              color: Colors.white, // Text color
             ),
           ),
         ],
       ),
-    );
-  }
+    ),
+  );
+}
+
+
+  // Widget to build individual news cards
+  // Widget _buildNewsCard(
+  //     {String title = '', String content = '', String time = ''}) {
+  //   return Card(
+  //     elevation: 2,
+  //     margin: const EdgeInsets.only(bottom: 16.0),
+  //     color: Color(0xFF1869a6), // Background color of the card
+  //     child: Column(
+  //       crossAxisAlignment: CrossAxisAlignment.start,
+  //       children: [
+  //         Padding(
+  //           padding: const EdgeInsets.all(8.0),
+  //           child: Column(
+  //             crossAxisAlignment: CrossAxisAlignment.start,
+  //             children: [
+  //               // Display the time aligned to the right and in a smaller font
+  //               Align(
+  //                 alignment: Alignment.topRight,
+  //                 child: Text(
+  //                   '$time',
+  //                   style: TextStyle(
+  //                     fontSize: 12, // Make the time smaller
+  //                     color: Colors.white,
+  //                   ),
+  //                 ),
+  //               ),
+  //               SizedBox(height: 8),
+  //               // Title of the news
+  //               Text(
+  //                 title,
+  //                 style: TextStyle(
+  //                   fontSize: 18,
+  //                   fontWeight: FontWeight.bold,
+  //                   color: Colors.white, // Text color
+  //                 ),
+  //               ),
+  //               SizedBox(height: 8),
+  //               // Content of the news
+  //               Text(
+  //                 content,
+  //                 style: TextStyle(
+  //                   fontSize: 16,
+  //                   color: Colors.white, // Text color
+  //                 ),
+  //               ),
+  //             ],
+  //           ),
+  //         ),
+  //       ],
+  //     ),
+  //   );
+  // }
+
 }

@@ -1,4 +1,5 @@
-import 'package:crfpe_mobile/pages/home/widgets/header_etudiant.dart';
+// import 'package:crfpe_mobile/pages/home/widgets/header_etudiant.dart';
+import 'package:crfpe_mobile/pages/home/widgets/header.dart';
 import 'package:crfpe_mobile/pages/communication/widgets/c_etudiant.dart';
 import 'package:crfpe_mobile/pages/Facture/facture.dart';
 import 'package:crfpe_mobile/pages/agenda/agenda.dart';
@@ -32,7 +33,7 @@ class _CommunicationpageState extends State<Communicationpage> {
               maxHeight: 120,
               child: Container(
                 color: const Color(0xfff6f8ff),
-                child: const HeaderEtudiantSection(),
+                child: const HeaderSection(),
               ),
             ),
           ),

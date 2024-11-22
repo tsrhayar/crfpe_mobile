@@ -233,7 +233,7 @@ class _CalendarSectionState extends State<CalendarSection> {
             else if (_sessionsByRoom.isEmpty)
               Center(
                 child: Text(
-                  'Aucune séance disponible', // Message when no sessions are available
+                  'Aucune séance n\'est disponible pour ce jour.', // Message lorsqu'aucune séance n'est disponible
                   style: TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
                 ),
               )
@@ -266,8 +266,6 @@ class _CalendarSectionState extends State<CalendarSection> {
                   ],
                 );
               }).toList(),
-
-           
           ],
         ),
       ),

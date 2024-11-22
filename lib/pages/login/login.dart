@@ -19,23 +19,6 @@ class _LoginPageState extends State<LoginPage> {
   final TextEditingController _passwordController = TextEditingController();
   final GlobalKey<FormState> _formKey = GlobalKey<FormState>();
 
-  // @override
-  // void initState() {
-  //   super.initState();
-  //   _loadUserCredentials();
-  // }
-
-  // Future<void> _loadUserCredentials() async {
-  //   final prefs = await SharedPreferences.getInstance();
-  //   setState(() {
-  //     _rememberMe = prefs.getBool('rememberMe') ?? false;
-  //     if (_rememberMe) {
-  //       _emailController.text = prefs.getString('email') ?? '';
-  //       _passwordController.text = prefs.getString('password') ?? '';
-  //     }
-  //   });
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -106,6 +89,7 @@ class _LoginPageState extends State<LoginPage> {
             prefs.setString('token', data['token']);
             prefs.setString('role', data['role']);
             prefs.setString('user_id', data['user_id']);
+            prefs.setString('user_fullname', data['user_fullname']);
             if (_rememberMe) {
               prefs.setString('email', _emailController.text);
               prefs.setString('password', _passwordController.text);
@@ -368,29 +352,6 @@ class _LoginPageState extends State<LoginPage> {
                                 style: TextStyle(color: Color(0xFFFFFFFFF))),
                           ),
                           SizedBox(height: 10),
-
-                          // ElevatedButton.icon(
-                          //   onPressed: _signInWithGoogle,
-                          //   style: ElevatedButton.styleFrom(
-                          //     foregroundColor: Colors.white,
-                          //     backgroundColor: Color(0xFFDB4437),
-                          //     padding: EdgeInsets.symmetric(
-                          //         horizontal: 24, vertical: 15),
-                          //     shape: RoundedRectangleBorder(
-                          //       borderRadius: BorderRadius.circular(8.0),
-                          //       side: BorderSide(color: Color(0xFFDB4437)),
-                          //     ),
-                          //   ),
-                          //   icon: Icon(
-                          //     Icons.g_mobiledata_sharp, // Google icon
-                          //     color: Colors.white,
-                          //     size: 30,
-                          //   ),
-                          //   label: Text(
-                          //     'Se connecter avec Google',
-                          //     style: TextStyle(color: Colors.white),
-                          //   ),
-                          // ),
                         ],
                       ),
                     ),
