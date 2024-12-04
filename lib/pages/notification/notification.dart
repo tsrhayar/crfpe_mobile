@@ -4,7 +4,7 @@ import 'package:crfpe_mobile/pages/home/widgets/header.dart';
 import 'package:crfpe_mobile/pages/notification/widgets/n_etudiant.dart';
 import 'package:crfpe_mobile/pages/Facture/facture.dart';
 import 'package:crfpe_mobile/pages/agenda/agenda.dart';
-import 'package:crfpe_mobile/pages/evaluation/evaluation.dart';
+// import 'package:crfpe_mobile/pages/evaluation/evaluation.dart';
 import 'package:crfpe_mobile/pages/home/home.dart';
 import 'package:flutter/material.dart';
 import 'package:crfpe_mobile/widgets/bottom_navigation_bar.dart'; // Import the new widget

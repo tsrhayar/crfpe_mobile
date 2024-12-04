@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:http/http.dart' as http;
+import 'package:crfpe_mobile/pages/home/home.dart';
 
 class CalendarSection extends StatefulWidget {
   const CalendarSection({super.key});
@@ -28,7 +29,8 @@ class _CalendarSectionState extends State<CalendarSection> {
 
   Future<void> _fetchDataFromApi(DateTime selectedDate) async {
     final String url =
-        'https://preprod.solaris-crfpe.fr/api/mobile/agenda/${selectedDate.toLocal().toIso8601String().split('T')[0]}/1';
+        // 'https://preprod.solaris-crfpe.fr/api/mobile/agenda/${selectedDate.toLocal().toIso8601String().split('T')[0]}/1';
+        'https://solaris-crfpe.fr/api/mobile/agenda/${selectedDate.toLocal().toIso8601String().split('T')[0]}/1';
     final prefs = await SharedPreferences.getInstance();
     String? authToken = prefs.getString('token');
     print('authToken: ${authToken}');
@@ -76,6 +78,8 @@ class _CalendarSectionState extends State<CalendarSection> {
       }
     } catch (e) {
       print('Error . : $e');
+      // prefs.remove('token');
+      // MaterialPageRoute(builder: (context) => HomePage());
     } finally {
       setState(() {
         _isLoading = false; // Fin du chargement
@@ -99,7 +103,8 @@ class _CalendarSectionState extends State<CalendarSection> {
     if (refreshToken == null) return null;
 
     final response = await http.post(
-      Uri.parse('https://preprod.solaris-crfpe.fr/api/refresh-token'),
+      // Uri.parse('https://preprod.solaris-crfpe.fr/api/refresh-token'),
+      Uri.parse('https://solaris-crfpe.fr/api/refresh-token'),
       headers: {
         'Content-Type': 'application/json',
         'Authorization': 'Bearer $refreshToken',
@@ -132,6 +137,8 @@ class _CalendarSectionState extends State<CalendarSection> {
         String session = subEvent['session']; // Start time
         String startTime = subEvent['seance'].split(' - ')[0]; // Start time
         String endTime = subEvent['seance'].split(' - ')[1]; // End time
+        String formers = subEvent[
+            'formers']; // Room name (used in the key and session details)
         String roomName = subEvent[
             'salle_name']; // Room name (used in the key and session details)
 
@@ -159,6 +166,7 @@ class _CalendarSectionState extends State<CalendarSection> {
           endTime: endTime,
           nbStagiaires: subEvent[
               'nbStagiaires'], // nbStagiaires/Instructor info (from 'af')
+          formers: formers, // Room
           room: roomName, // Room
         ));
       }
@@ -386,6 +394,29 @@ class _CalendarSectionState extends State<CalendarSection> {
               TextSpan(
                 children: [
                   TextSpan(
+                    text: 'Formateur(s): ',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 16,
+                    ),
+                  ),
+                  TextSpan(
+                    text: '${session.formers}',
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight:
+                          FontWeight.normal, // Regular weight for this part
+                      fontSize: 16,
+                    ),
+                  ),
+                ],
+              ),
+            ),
+            Text.rich(
+              TextSpan(
+                children: [
+                  TextSpan(
                     text: 'Salle: ',
                     style: TextStyle(
                       color: Colors.white,
@@ -420,6 +451,7 @@ class Session {
   final String seance;
   final String endTime;
   final int nbStagiaires;
+  final String formers;
   final String room;
 
   Session({
@@ -430,6 +462,7 @@ class Session {
     required this.seance,
     required this.endTime,
     required this.nbStagiaires,
+    required this.formers,
     required this.room,
   });
 }

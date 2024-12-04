@@ -24,7 +24,11 @@ class _N_EtudiantSectionState extends State<N_EtudiantSection> {
   Future<void> fetchNotifications() async {
     final prefs = await SharedPreferences.getInstance();
     final authToken = prefs.getString('token') ?? '';
-    final url = 'https://preprod.solaris-crfpe.fr/api/getNotifications';
+    // const url = 'https://preprod.solaris-crfpe.fr/api/getNotifications';
+    const url = 'https://solaris-crfpe.fr/api/getNotifications';
+    const markAsReadUrl =
+        'https://solaris-crfpe.fr/api/markAllAsRead';
+        // 'https://preprod.solaris-crfpe.fr/api/markAllAsRead';
 
     try {
       final response = await http.get(
@@ -38,6 +42,21 @@ class _N_EtudiantSectionState extends State<N_EtudiantSection> {
         final Map<String, dynamic> responseData = json.decode(response.body);
         final List<dynamic> notifications = responseData['data'];
         print('newsData ${notifications}');
+
+        // Mark all notifications as read
+        final markAsReadResponse = await http.get(
+          Uri.parse(markAsReadUrl),
+          headers: {
+            'Authorization': 'Bearer $authToken',
+          },
+        );
+
+        if (markAsReadResponse.statusCode == 200) {
+          print('All notifications marked as read');
+        } else {
+          print(
+              'Failed to mark notifications as read: ${markAsReadResponse.statusCode}');
+        }
 
         setState(() {
           newsData = notifications.map((notification) {
@@ -55,6 +74,8 @@ class _N_EtudiantSectionState extends State<N_EtudiantSection> {
       }
     } catch (error) {
       print('Error fetching notifications: $error');
+      // prefs.remove('token');
+      // MaterialPageRoute(builder: (context) => HomePage());
     } finally {
       setState(() {
         isLoading = false; // Set loading to false after fetching
@@ -82,14 +103,7 @@ class _N_EtudiantSectionState extends State<N_EtudiantSection> {
             ? Center(
                 child: CircularProgressIndicator()) // Show loading indicator
             : newsData.isEmpty
-                ?
-                //  Center(
-                //     child: Text(
-                //       'Aucune notification',
-                //       style: TextStyle(fontSize: 18, color: Colors.black),
-                //     ),
-                //   )
-                Center(
+                ? Center(
                     child: Text(
                       'Aucune notification', // Empty list message
                       style: TextStyle(
@@ -198,7 +212,9 @@ class _N_EtudiantSectionState extends State<N_EtudiantSection> {
                         color: Colors.black
                             .withOpacity(0.6), // Light opacity for time text
                       ),
-                      textAlign: TextAlign.right, // Align time to the right
+                      textAlign: TextAlign.right,
+                      overflow:
+                          TextOverflow.ellipsis, // Align time to the right
                     ),
                   ),
                 ],
@@ -222,74 +238,4 @@ class _N_EtudiantSectionState extends State<N_EtudiantSection> {
       ),
     );
   }
-
-  // Widget _buildNotifCard({
-  //   required String title,
-  //   required String content,
-  //   required String time,
-  //   required Color color,
-  // }) {
-  //   return Container(
-  //     width: double.infinity, // Make the card width 100% of the parent
-  //     child: Card(
-  //       elevation: 2,
-  //       margin: const EdgeInsets.only(bottom: 3.0),
-  //       color: Colors.grey[300], // Set to a gray background
-  //       shape: RoundedRectangleBorder(
-  //         // Remove rounding
-  //         borderRadius: BorderRadius.zero,
-  //       ),
-  //       child: Padding(
-  //         padding: const EdgeInsets.all(8.0),
-  //         child: Column(
-  //           crossAxisAlignment: CrossAxisAlignment.start,
-  //           children: [
-  //             Row(
-  //               children: [
-  //                 Expanded(
-  //                   flex: 6, // Title takes up 60%
-  //                   child: Text(
-  //                     title,
-  //                     style: TextStyle(
-  //                       fontSize: 18,
-  //                       fontWeight: FontWeight.bold,
-  //                       color: Colors
-  //                           .black, // Adjust the color to black or a readable color on gray
-  //                     ),
-  //                     overflow: TextOverflow
-  //                         .ellipsis, // Truncate the title with ellipsis if too long
-  //                   ),
-  //                 ),
-  //                 Expanded(
-  //                   flex: 4, // Time takes up 40%
-  //                   child: Text(
-  //                     time,
-  //                     style: TextStyle(
-  //                       fontSize: 14,
-  //                       color: Colors
-  //                           .black, // Adjust the color to black or a readable color on gray
-  //                     ),
-  //                     textAlign: TextAlign.right, // Align time to the right
-  //                   ),
-  //                 ),
-  //               ],
-  //             ),
-  //             SizedBox(height: 8),
-  //             Text(
-  //               content,
-  //               style: TextStyle(
-  //                 fontSize: 16,
-  //                 color: Colors
-  //                     .black, // Adjust the color to black or a readable color on gray
-  //               ),
-  //               overflow: TextOverflow
-  //                   .ellipsis, // Truncate the content with ellipsis if too long
-  //               maxLines: 1, // Ensure the content stays on a single line
-  //             ),
-  //           ],
-  //         ),
-  //       ),
-  //     ),
-  //   );
-  // }
 }
